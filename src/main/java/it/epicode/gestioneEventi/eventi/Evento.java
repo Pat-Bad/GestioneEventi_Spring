@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="eventi")
 public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

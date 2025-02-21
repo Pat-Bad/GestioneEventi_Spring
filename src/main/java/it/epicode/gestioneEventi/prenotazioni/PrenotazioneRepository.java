@@ -11,8 +11,10 @@ import java.util.List;
 
 public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Long> {
 
-    List<Prenotazione> findByIdUtente(Utente utente);
-    List<Prenotazione> findByIdUtenteAndStato(Utente utente, StatoPrenotazione statoPrenotazione);
+    List<Prenotazione> findByUtente(Utente utente);
+    List<Prenotazione> findByUtenteAndStato(Utente utente, StatoPrenotazione statoPrenotazione);
     boolean existsByDataAndStato(@FutureOrPresent(message = "La data deve essere futura o quella corrente")
                                  LocalDate data, StatoPrenotazione statoPrenotazione);
+
+
 }

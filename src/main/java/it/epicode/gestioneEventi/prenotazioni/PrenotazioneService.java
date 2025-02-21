@@ -67,4 +67,8 @@ public class PrenotazioneService {
         prenotazioneRepository.delete(prenotazione);
         return prenotazione;
     }
+
+    public Prenotazione findById(Long id) {
+        return prenotazioneRepository.findById(id).get();
+    }
 }

@@ -55,4 +55,7 @@ public class EventoService {
     }
 
 
+    public Evento findById(Long id) {
+            return eventoRepository.findById(id).get();
+    }
 }
