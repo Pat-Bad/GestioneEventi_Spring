@@ -1,7 +1,7 @@
 package it.epicode.gestioneEventi.prenotazioni;
 
+import it.epicode.gestioneEventi.auth.AppUser;
 import it.epicode.gestioneEventi.eventi.Evento;
-import it.epicode.gestioneEventi.utenti.Utente;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,21 +11,23 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name="prenotazioni")
+@NoArgsConstructor
 public class Prenotazione {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate data;
-    private StatoPrenotazione stato;
+
     @ManyToOne
-    @JoinColumn(name="id_utente")
-    private Utente utente;
+    @JoinColumn(name = "utente_id", nullable = false)
+    private AppUser utente;
+
     @ManyToOne
-    @JoinColumn(name="id_evento")
+    @JoinColumn(name = "evento_id", nullable = false)
     private Evento evento;
 
-    }
+    private LocalDate data;
 
+    @Enumerated(EnumType.STRING)
+    private StatoPrenotazione stato;}

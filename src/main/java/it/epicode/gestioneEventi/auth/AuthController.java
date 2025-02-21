@@ -15,16 +15,18 @@ import java.util.Set;
 public class AuthController {
 
     private final AppUserService appUserService;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
-        appUserService.registerUser(
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest registerRequest) {
+        AppUser appUser = appUserService.registerUser(
                 registerRequest.getUsername(),
                 registerRequest.getPassword(),
                 Set.of(Role.ROLE_USER) // Assegna il ruolo di default
         );
-        return ResponseEntity.ok("Registrazione avvenuta con successo");
-    }
+        Long userId = appUser.getId();
+        String token = jwtTokenUtil.generateToken(appUser);
+        return ResponseEntity.ok(new AuthResponse(token, userId));};
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
@@ -32,6 +34,10 @@ public class AuthController {
                 loginRequest.getUsername(),
                 loginRequest.getPassword()
         );
-        return ResponseEntity.ok(new AuthResponse(token));
+        AppUser appUser = appUserService.loadUserByUsername(loginRequest.getUsername());
+        Long userId = appUser.getId();
+
+
+        return ResponseEntity.ok(new AuthResponse(token, userId));
     }
 }

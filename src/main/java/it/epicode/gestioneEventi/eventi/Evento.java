@@ -1,6 +1,6 @@
 package it.epicode.gestioneEventi.eventi;
 
-import it.epicode.gestioneEventi.utenti.Utente;
+import it.epicode.gestioneEventi.auth.AppUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +24,5 @@ public class Evento {
     private int postiDisponibili;
     @ManyToOne
     @JoinColumn(name = "id_organizzatore")
-    private Utente organizzatore;
+    private AppUser organizzatore;
 }

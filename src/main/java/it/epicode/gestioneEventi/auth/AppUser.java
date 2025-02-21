@@ -58,6 +58,4 @@ public class AppUser implements UserDetails {
         this.accountNonLocked = accountNonLocked;
    }
 
-
-
 }

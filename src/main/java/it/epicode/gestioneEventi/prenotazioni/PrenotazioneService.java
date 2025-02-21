@@ -1,5 +1,7 @@
 package it.epicode.gestioneEventi.prenotazioni;
 
+import it.epicode.gestioneEventi.auth.AppUser;
+import it.epicode.gestioneEventi.auth.AppUserRepository;
 import it.epicode.gestioneEventi.eventi.Evento;
 import it.epicode.gestioneEventi.eventi.EventoRepository;
 import it.epicode.gestioneEventi.exceptions.PostiEsauritiException;
@@ -19,16 +21,20 @@ import static it.epicode.gestioneEventi.prenotazioni.StatoPrenotazione.CONFERMAT
 public class PrenotazioneService {
     private final PrenotazioneRepository prenotazioneRepository;
     private final EventoRepository eventoRepository;
+    private final AppUserRepository appUserRepository;
 
     //METODO SAVE
     @Transactional
     public CreateResponse save(@Valid PrenotazioneRequest request) {
-        Evento evento = request.getEvento();
+        Evento evento = eventoRepository.findById(request.getEventoId()).get();
+        AppUser utente = appUserRepository.findById(request.getUtenteId()).get();
         if (evento.getPostiDisponibili() == 0)
             throw new PostiEsauritiException("Posti esauriti!");
         Prenotazione prenotazione = new Prenotazione();
         BeanUtils.copyProperties(request, prenotazione);
+        prenotazione.setData(evento.getData());
         prenotazione.setEvento(evento);
+        prenotazione.setUtente(utente);
         prenotazioneRepository.save(prenotazione);
 
         //DEVO GESTIRE I POSTI DISPONIBILI, DEVONO DIMINUIRE A OGNI PRENOTAZIONE

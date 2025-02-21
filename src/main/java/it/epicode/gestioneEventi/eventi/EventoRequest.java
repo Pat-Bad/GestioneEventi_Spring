@@ -25,4 +25,6 @@ public class EventoRequest {
     @Positive(message = "Il numero di posti disponibili deve essere maggiore di 1")
     @Min(value = 10, message = "Il numero di posti disponibili deve essere almeno 10")
     private int postiDisponibili;
+    @NotBlank
+    private Long organizzatoreId;
 }

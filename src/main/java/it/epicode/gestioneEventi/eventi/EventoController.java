@@ -35,6 +35,7 @@ public class EventoController {
     @PreAuthorize("hasRole('ROLE_ORGANIZZATORE')")
     @ResponseStatus(HttpStatus.CREATED)
     public CreateResponse save(@RequestBody EventoRequest request){
+
         return eventoService.save(request);
     }
 
