@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PrenotazioneRequest {
 
-    @NotBlank(message = "Il campo non può essere vuoto")
+    @NotNull(message = "Il campo non può essere vuoto")
     private Long utenteId;
-    @NotBlank(message = "Il campo non può essere vuoto")
+    @NotNull(message = "Il campo non può essere vuoto")
     private Long eventoId;
 }
