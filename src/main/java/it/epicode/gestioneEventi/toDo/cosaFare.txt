@@ -1,0 +1,38 @@
+Sviluppare un'applicazione web che permetta agli utenti di visualizzare una lista di eventi, prenotare posti per partecipare agli eventi disponibili e fornire funzionalità di gestione degli eventi per gli organizzatori
+
+Implementare un sistema di registrazione e accesso per gli utenti. Definire almeno due ruoli utente: "Utente Normale" e "Organizzatore di Eventi" (Non serve il CRUD completo per gli utenti). Le password devono essere protette opportunamente. “Organizzatore di Eventi” è il creatore dell’evento, non è un Admin della piattaforma
+
+Gli organizzatori possono creare nuovi eventi specificando dettagli come titolo, descrizione, data, luogo e numero di posti disponibili, l’evento inoltre deve avere un riferimento al creatore di esso. Gli organizzatori devono anche poter modificare ed eventualmente eliminare i propri eventi
+
+Gli utenti possono prenotare posti per partecipare agli eventi che hanno ancora disponibilità
+Ricordarsi di gestire in maniera appropriata eccezioni ed opportune risposte di errore
+
+Vietato pushare direttamente su master/main e obbligatorio gestire la repository in maniera accurata (alla fine il lavoro va unito comunque a master/main)
+
+EXTRA: Gli utenti possono visualizzare gli eventi a cui hanno prenotato un posto e annullare la prenotazione se necessario
+
+
+RUOLI: USER, ORGANIZZATORE - modificare il sistema aggiungendo il ruolo.
+ORGANIZZATORE può creare eventi, modificarli, eliminarli
+USER può prenotare un posto e vedere le sue prenotazioni ed eliminare la prenotazione
+
+CLASSE EVENTO: titolo, descrizione, data, luogo, numero di posti disponibili, riferimento a chi l'ha creato (All'organizzatore)
+
+Quindi quante tabelle avrò?
+Una per evento
+una per user (normale o organizzatore - campo)
+una per prenotazioni
+
+in evento metto riferimento all'organizzatore
+in user metto il riferimento all'evento prenotato e all'evento creato, in base al ruolo
+
+
+uno user può partecipare a più eventi, un evento ha più partecipanti (many-to-many) ---> mi serve una tabella intermedia (PRENOTAZIONI)
+organizzatore organizza più eventi, un evento è organizzato da un solo organizzatore (one to many)
+evento ha chiave esterna organizzatore_id che si riferisce alla tabella user dove c'è quello con ruolo organizzatore
+
+
+-------------------------
+USER: id, nome, email, psw, ruolo
+EVENTI: id, titolo, descrizione, data, luogo, posti disponibili, id organizzatore (FK che punta a tabella user con ruolo organizzaore)
+PRENOTAZIONI: id, id_evento (FK id tabella eventi), id user (FK id tabella user), data prenotazione, stato prenotazione (ENUM attiva, cancellata)
