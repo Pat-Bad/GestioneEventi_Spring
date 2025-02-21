@@ -25,4 +25,6 @@ public class Prenotazione {
     @ManyToOne
     @JoinColumn(name="id_evento")
     private Evento evento;
-}
+
+    }
+
