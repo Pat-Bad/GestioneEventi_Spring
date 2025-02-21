@@ -1,9 +1,6 @@
 package it.epicode.gestioneEventi.eventi;
 
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +22,6 @@ public class EventoRequest {
     @Positive(message = "Il numero di posti disponibili deve essere maggiore di 1")
     @Min(value = 10, message = "Il numero di posti disponibili deve essere almeno 10")
     private int postiDisponibili;
-    @NotBlank
+    @NotNull
     private Long organizzatoreId;
 }
